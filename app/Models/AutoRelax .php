@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class AutoRelax  extends Model
 {
     use HasFactory;
-    protected $table = 'autorelaxes'; 
+    public $timestamps = false;
+    // protected $table = 'autorelaxes'; 
 }

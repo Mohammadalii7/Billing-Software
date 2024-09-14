@@ -135,7 +135,7 @@
             <h1>Invoice Info</h1>
         </div>
         <hr>
-
+        {{-- {{dd($invoice)}} --}}
         <div class="subscriber-details">
             <div class="subscriber-info">
                 <h3>Customer Info</h3>
@@ -169,7 +169,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td></td>
+                        <td>{{$invoice->item}}</td>
                         <td></td>
                         <td></td>
                         <td> </td>
@@ -193,10 +193,9 @@
        
         </div>
         <hr>
-
         <div class="actions">
             <button><i class="fas fa-print"></i>Print Invoice</button>
-        <a href="invoice" class="btn btn-outline-secondary"><i class="fas fa-edit"></i>Edit</a> 
+        <a href="{{ url('editinvoice/'.$invoice->id) }}" class="btn btn-outline-secondary"><i class="fas fa-edit"></i>Edit</a> 
         </div>
     </div>
 </body>

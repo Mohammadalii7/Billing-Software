@@ -9,5 +9,5 @@ class Invoice extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['customer', 'item'];
+    // protected $fillable = ['customer', 'item'];
 }

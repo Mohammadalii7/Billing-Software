@@ -71,8 +71,8 @@
             <div class="sidebar-heading">Auto Relax</div>
             <div class="list-group list-group-flush">
                 <a href="home" class="list-group-item list-group-item-action "><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                <a href="showlist" class="list-group-item list-group-item-action"><i class="fas fa-file-invoice"></i> Invoices</a>
-                <a href="invoice" class="list-group-item list-group-item-action"><i class="fas fa-plus"></i> Add Invoice</a>
+                <a href="{{url('showlist')}}" class="list-group-item list-group-item-action"><i class="fas fa-file-invoice"></i> Invoices</a>
+                <a href="{{url('invoice')}}" class="list-group-item list-group-item-action"><i class="fas fa-plus"></i> Add Invoice</a>
                 <a href="logout" class="list-group-item list-group-item-action"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>

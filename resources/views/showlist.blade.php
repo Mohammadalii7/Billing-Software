@@ -29,7 +29,7 @@
             <td>{{ $item->discount_amount }}</td>
             <td>{{ $item->paid_amount }}</td>
             <td>{{ $item->invoice_date }}</td>
-            <td><a href="update" class="btn btn-outline-secondary">
+            <td><a href="viewinvoice/{{$item->id}}"class="btn btn-outline-secondary">
                     <i class="fa fa-eye"></i> View Invoice
                 </a></td>
         </tr>

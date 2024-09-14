@@ -18,7 +18,7 @@ class InvoiceController extends Controller
         ]);
 
         $user = AutoRelax::where('email', $request->email)->first();
-
+        dd($user);
         if ($user && Hash::check($request->password, $user->password)) {
             // Log in the user
             Auth::login($user);
@@ -31,6 +31,7 @@ class InvoiceController extends Controller
 
     function show()
     {
+        // $user=AutoRelax::all();
         $user = Invoice::all();
         return view('showlist', ['user' => $user]);
     }
@@ -58,9 +59,14 @@ class InvoiceController extends Controller
         }
     }
 
-    function edit($id) {
-        $user = Invoice::find($id);
-        return view('invoice', ['data' => $user]); 
+    function viewinvoice($id) {
+        // dd($id);
+        $invoice = Invoice::find($id);
+        return view('viewinvoice', compact('invoice')); 
+    }
+    function editinvoice($id) {
+        $invoice = Invoice::find($id);
+        return view('editinvoice', compact('invoice')); 
     }
 
     function update(Request $request){
