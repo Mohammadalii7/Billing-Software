@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('customer');
-            $table->string('item');
             $table->string('invoice_no');
+            $table->decimal('subtotal',10,2);
             $table->boolean('status')->default(true); 
             $table->decimal('discount',5,2); 
             $table->decimal('discount_amount',10,2); 

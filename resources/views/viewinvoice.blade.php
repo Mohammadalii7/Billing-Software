@@ -158,24 +158,23 @@
             <table>
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Item Name</th>
+                        <th>Id</th>
+                        <th>Item </th>
                         <th>Description</th>
-                        <th>Item Type</th>
                         <th>Quantity</th>
-                        <th>Unit Price (₹)</th>
+                        <th>Price(₹)</th>
                         <th>Total Price (₹)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td>{{$invoice->id}}</td>
                         <td>{{$invoice->item}}</td>
-                        <td></td>
-                        <td></td>
-                        <td> </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{$invoice->discount}}</td>
+                        <td>{{$invoice->quantity}} </td>
+                        <td>{{$invoice->price}}</td>
+                        <td>{{$invoice->totalprice}}</td>
+                     
                     </tr>
                  
                 </tbody>
@@ -195,7 +194,7 @@
         <hr>
         <div class="actions">
             <button><i class="fas fa-print"></i>Print Invoice</button>
-        <a href="{{ url('editinvoice/'.$invoice->id) }}" class="btn btn-outline-secondary"><i class="fas fa-edit"></i>Edit</a> 
+        <a href="{{ url('EditInvoice/'.$invoice->id) }}" class="btn btn-outline-secondary"><i class="fas fa-edit"></i>Edit</a> 
         </div>
     </div>
 </body>

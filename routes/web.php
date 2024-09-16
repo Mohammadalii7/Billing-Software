@@ -10,24 +10,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('login','login');
 Route::view('admin','admin');
-Route::view('invoice','invoice');
-Route::view('showlist','showlist');
-Route::view('viewinvoice','viewinvoice');
-Route::view('editinvoice','editinvoice');
+Route::view('AddInvoice','AddInvoice');
+Route::view('ShowInvoice','ShowInvoice');
+Route::view('ViewInvoice','ViewInvoice');
+Route::view('EditInvoice','EditInvoice');
 
+
+//for login
 
 Route::post('login',[InvoiceController::class,'login']);
 
-Route::get('showlist',[InvoiceController::class,'show']);
+//for show invoice form
+Route::get('ShowInvoice',[InvoiceController::class,'ShowInvoice']);
 
+//for add invoice
+Route::post('AddInvoice',[InvoiceController::class,'AddInvoice']);
 
-Route::post('add',[InvoiceController::class,'add']);
+//for view invoice
+Route::get('ViewInvoice/{id}',[InvoiceController::class,'ViewInvoice']);
 
-Route::get('viewinvoice/{id}',[InvoiceController::class,'viewinvoice']);
-Route::get('editinvoice/{id}',[InvoiceController::class,'editinvoice']);
+//for edit invoice
+Route::get('EditInvoice/{id}',[InvoiceController::class,'EditInvoice']);
+
+//for update invoice using post mehtod
 Route::post('update',[InvoiceController::class,'update']);
-Route::get('');
 
+//for logout
 Route::get('logout',[InvoiceController::class,'logout']);
 
 

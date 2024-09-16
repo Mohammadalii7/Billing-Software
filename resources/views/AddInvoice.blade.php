@@ -11,7 +11,7 @@
 
         <div class="card-body">
             <!-- Form Starts -->
-            <form action="add" method="post">
+            <form action="AddInvoice" method="post">
                 @csrf <!-- CSRF protection for Laravel -->
 
                 <!-- Customer Input -->
@@ -126,13 +126,13 @@
         const tableBody = document.querySelector('#itemsTable tbody');
         const newRow = document.createElement('tr');
         
-        newRow.innerHTML = `
-            <td><input type="text" class="form-control" name="item" placeholder="Item Name"></td>
-            <td><input type="text" class="form-control" placeholder="Description"></td>
-            <td><input type="number" class="form-control quantity" value="1" min="1" oninput="updateTotal(this)"></td>
-            <td><input type="number" class="form-control price" value="0.00" min="0" step="0.01" oninput="updateTotal(this)"></td>
-            <td><input type="number" class="form-control total" value="0.00" readonly></td>
-            <td><button class="btn btn-danger" onclick="removeItem(this)"><i class="fas fa-trash-alt"></i></button></td>
+         newRow.innerHTML = `
+            <td><input type="text" class="form-control" name="items[][item]" placeholder="Item Name"></td>
+            <td><input type="text" class="form-control" name="items[][description]" placeholder="Description"></td>
+            <td><input type="number" class="form-control" name="items[][quantity]" value="1" min="1"></td>
+            <td><input type="number" class="form-control" name="items[][price]" value="0.00" min="0" step="0.01"></td>
+            <td><input type="number" class="form-control" name="items[][total]" value="0.00" readonly></td>
+            <td><button class="btn btn-danger" type="button" onclick="removeItem(this)">Remove</button></td>
         `;
         
         tableBody.appendChild(newRow);
@@ -154,7 +154,7 @@
         updateInvoiceSummary();
     }
 
-    function updateInvoiceSummary() {
+    function updateInvoiceSummary(){
         let subtotal = 0;
         const totalFields = document.querySelectorAll('.total');
         totalFields.forEach(field => {
