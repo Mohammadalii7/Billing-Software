@@ -28,14 +28,16 @@
             border: 1px solid #ccc;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        h1{
-            
-            font-family:Arial;
+
+        h1 {
+
+            font-family: Arial;
             font-size: 50px;
-            color:orange;
+            color: orange;
         }
 
-        h2, h3 {
+        h2,
+        h3 {
             margin-bottom: 15px;
         }
 
@@ -66,7 +68,8 @@
             justify-content: space-between;
         }
 
-        .subscriber-info, .invoice-details {
+        .subscriber-info,
+        .invoice-details {
             width: 48%;
         }
 
@@ -80,7 +83,8 @@
             margin-bottom: 20px;
         }
 
-        table th, table td {
+        table th,
+        table td {
             border: 1px solid #000;
             padding: 12px;
             text-align: center;
@@ -127,6 +131,7 @@
         .actions .edit-btn:hover {
             background-color: #0b7dda;
         }
+
     </style>
 </head>
 <body>
@@ -139,16 +144,16 @@
         <div class="subscriber-details">
             <div class="subscriber-info">
                 <h3>Customer Info</h3>
-                <p><strong>Customer:</strong> </p>
+                <p><strong>Customer:</strong>{{$invoice->customer}} </p>
                 <p><strong>Tax No:</strong></p>
-                <p><strong>Contact No:</strong> 7897654253</p>
-                <p><strong>Address:</strong> Gujrat Jathpur</p>
+                <p><strong>Contact:</strong> {{$invoice->phone}}</p>
+                {{-- <p><strong>Address:</strong> Gujrat Jathpur</p> --}}
             </div>
 
             <div class="invoice-details">
-                <h3>Invoice Info (TX/24-25/1798)</h3>
+                <h3>Invoice Info {{$invoice->invoice_no}}</h3>
                 <p><strong>Invoice Date:</strong> 2024-09-14</p>
-                <p><strong>Status:</strong> <span class="unpaid">Unpaid</span></p>
+                <p><strong>Status:</strong> <span class="unpaid">{{$invoice->status}}</span></p>
             </div>
         </div>
         <hr>
@@ -160,23 +165,25 @@
                     <tr>
                         <th>Id</th>
                         <th>Item </th>
-                        <th>Description</th>
+                        {{-- <th>Description</th> --}}
                         <th>Quantity</th>
                         <th>Price(₹)</th>
                         <th>Total Price (₹)</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($invoice_items as $key => $invoice_item)
                     <tr>
-                        <td>{{$invoice->id}}</td>
-                        <td>{{$invoice->item}}</td>
-                        <td>{{$invoice->discount}}</td>
-                        <td>{{$invoice->quantity}} </td>
-                        <td>{{$invoice->price}}</td>
-                        <td>{{$invoice->totalprice}}</td>
-                     
+                        <td>{{$key + 1}}</td>
+                        <td>{{$invoice_item->item_name}}</td>
+                        {{-- <td>{{$invoice_item->description}}</td> --}}
+                        <td>{{$invoice_item->quantity}} </td>
+                        <td>{{$invoice_item->price}}</td>
+                        <td>{{$invoice_item->totalprice}}</td>
+
                     </tr>
-                 
+                    @endforeach
+
                 </tbody>
             </table>
         </div>
@@ -184,19 +191,21 @@
 
         <div class="account-info">
             <h3>Account Info</h3>
-            <p><strong>Subtotal:</strong> ₹150.00</p>
-            <p><strong>Discount (0.00%):</strong> ₹0.00</p>
-            <p><strong>Taxable Amount:</strong> ₹150.00</p>
-            <p><strong>Tax Amount:</strong> ₹7.5</p>
-            <p><strong>Paid Amount:</strong> ₹0.00</p>
-       
+            <p><strong>Subtotal:</strong>{{$invoice->subtotal}}</p>
+            <p><strong>Discount (0.00%):</strong>{{$invoice->discount}}</p>
+            <p><strong>Discount Amount:</strong>{{$invoice->discount_amount}}</p>
+            {{-- <p><strong>Tax Amount:</strong> ₹7.5</p> --}}
+            <p><strong>Paid Amount:</strong>{{$invoice->paid_amount}}</p>
+
         </div>
         <hr>
         <div class="actions">
             <button><i class="fas fa-print"></i>Print Invoice</button>
-        <a href="{{ url('EditInvoice/'.$invoice->id) }}" class="btn btn-outline-secondary"><i class="fas fa-edit"></i>Edit</a> 
+            
+            <a href="{{ url('EditInvoice/'.$invoice->id) }}" class="btn btn-outline-secondary">
+                <i class="fas fa-edit"></i>
+            </a>
         </div>
     </div>
 </body>
 </html>
-

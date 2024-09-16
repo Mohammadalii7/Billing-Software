@@ -7,7 +7,7 @@
         <tr>
             <th>Id</th>
             <th>Customer</th>
-            <th>Item</th>
+            <th>phone</th>
             <th>Invoice No</th>
             <th>Status</th>
             <th>Discount</th>
@@ -17,12 +17,12 @@
             <th>Actions</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody> 
         @foreach ($user as $item)
         <tr>
             <td>{{ $item->id }}</td>
             <td>{{ $item->customer }}</td>
-            <td>{{ $item->item }}</td>
+            <td>{{ $item->phone }}</td>
             <td>{{ $item->invoice_no }}</td>
             <td>{{$item->Status == '1' ? 'unpaid' : 'paid'}}</td>
             <td>{{ $item->discount }}</td>

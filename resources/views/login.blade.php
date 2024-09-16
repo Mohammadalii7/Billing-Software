@@ -118,26 +118,26 @@
     <div class="container">
         <!-- Left Side (Login Form) -->
         <div class="left">
-            <img src="logo.png" alt="Logo" style="width: 150px; margin-bottom: 20px;">
+            <img src="" alt="Logo" style="width: 150px; margin-bottom: 20px;">
             <h1>Login</h1>
             <p>Site/Admin</p>
 
             <input type="text" placeholder="Email or Username" class="form-control">
             <input type="password" placeholder="Password" class="form-control">
-            <a href="#" class="forgot-password">Forgot Your Password?</a>
+            {{-- <a href="#" class="forgot-password">Forgot Your Password?</a> --}}
 
-            <div class="remember">
+            {{-- <div class="remember">
                 <input type="checkbox" id="remember">
                 <label for="remember">Remember Me</label>
-            </div>
+            </div> --}}
 
             <button class="btn">Login</button>
         </div>
 
         <!-- Right Side (Text Area) -->
         <div class="right">
-            <h2>Internet Management & Billing System</h2>
-            <p>{ v }</p>
+            <h2>Garage Management & Billing System</h2>
+            {{-- <p>{ v }</p> --}}
         </div>
     </div>
 

@@ -73,7 +73,7 @@
                 <a href="home" class="list-group-item list-group-item-action "><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                 <a href="{{url('ShowInvoice')}}" class="list-group-item list-group-item-action"><i class="fas fa-file-invoice"></i> Invoices</a>
                 <a href="{{url('AddInvoice')}}" class="list-group-item list-group-item-action"><i class="fas fa-plus"></i> Add Invoice</a>
-                <a href="logout" class="list-group-item list-group-item-action"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="{{url('logout')}}" class="list-group-item list-group-item-action"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
 

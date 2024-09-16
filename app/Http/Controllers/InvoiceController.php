@@ -7,6 +7,8 @@ use App\Models\Invoiceitem;
 use App\Models\Autorelax;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 // use Illuminate\Support\Facades\Hash;
 
 class InvoiceController extends Controller
@@ -33,19 +35,21 @@ class InvoiceController extends Controller
     function ShowInvoice()
     {
         $user = Invoice::all();
-         dd($user);
+        //  dd($user);
         return view('ShowInvoice', ['user' => $user]);
     }
 
     function AddInvoice(Request $request)
     {
-        // dd($request->all());
         try {
-            dd();
+            DB::beginTransaction();
+
             $invoice = new Invoice();
             $lastInvoice = Invoice::orderBy('invoice_no', 'desc')->first();
             $invoice->customer = $request->customer;
+            $invoice->phone = $request->phone;
             $invoice->invoice_no = isset($lastInvoice->invoice_no)  ? $lastInvoice->invoice_no + 1 : 1;
+            $invoice->subtotal=$request->subtotal;
             $invoice->status = '1';
             $invoice->discount_amount = $request->discount_amount;
             $invoice->discount = $request->discount;
@@ -53,25 +57,22 @@ class InvoiceController extends Controller
             $invoice->invoice_date = $request->invoice_date;
             $invoice->save();
 
-            foreach ($request->item as $index => $item) {
-                var_dump($item);
-                // Access corresponding fields for each item
-                $item[] = $request->item[$index];
-                $description[] = $request->description[$index];
-                
-                
-                // Store the data (for example, save to database)
-                // You can create a new model for each item
-                
+            $invoice_items = array();
+            foreach ($request->item_name as $index => $item_name) {
+                $invoice_items[$index]['item_name'] = $item_name;
+                $invoice_items[$index]['description'] = $request->description[$index];                
+                $invoice_items[$index]['quantity'] = (int) $request->quantity[$index];                
+                $invoice_items[$index]['price'] = $request->price[$index];                
+                $invoice_items[$index]['totalprice'] = $request->totalprice[$index];                
+                $invoice_items[$index]['invoice_id'] = $invoice->id;                
             }
-            dd('ggg');
-            Invoiceitem::create([
-                'item' => $item,
-                'description' => $description,
-                // Add any other necessary fields
-            ]);
+            
+            Invoiceitem::insert($invoice_items);
+
+            DB::commit();
             return redirect('ShowInvoice');
         } catch (\Exception $e) {
+            DB::rollback();
             dd($e);
             return redirect()->back()->with('error', 'Item could not be added');
         }
@@ -79,13 +80,15 @@ class InvoiceController extends Controller
 
     function ViewInvoice($id)
     {
-        // dd($id);
         $invoice = Invoice::find($id);
-        return view('ViewInvoice', compact('invoice'));
+        $invoice_items = Invoiceitem::where('invoice_id', $id)->get();
+
+        return view('ViewInvoice', compact('invoice','invoice_items'));
     }
     function EditInvoice($id)
     {
         $invoice = Invoice::find($id);
+        // dd($invoice);
         return view('EditInvoice', compact('invoice'));
     }
 
@@ -93,6 +96,7 @@ class InvoiceController extends Controller
     {
         try {
             $invoice = Invoice::find($request->id);
+            dd($invoice);
             $invoice->customer = $request->customer;
             $invoice->item = $request->item;
             $invoice->discount_amount = $request->discount_amount;

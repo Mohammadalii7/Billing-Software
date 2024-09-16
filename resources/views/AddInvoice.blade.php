@@ -12,12 +12,19 @@
         <div class="card-body">
             <!-- Form Starts -->
             <form action="AddInvoice" method="post">
-                @csrf <!-- CSRF protection for Laravel -->
+                @csrf
+                <!-- CSRF protection for Laravel -->
 
                 <!-- Customer Input -->
-                <div class="mb-3">
-                    <label for="subscriber" class="form-label">Customer</label>
-                    <input type="text" class="form-control" id="customer" name="customer"   placeholder="Type at least first two characters">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="customer" class="form-label">Customer</label>
+                        <input type="text" class="form-control" id="customer" name="customer" placeholder="Type at least first two characters">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">phone</label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone information">
+                    </div>
                 </div>
 
                 <!-- Add Item Button -->
@@ -91,7 +98,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-3 mt-3">
                                         <label for="grandTotal" class="form-label">Grand Total</label>
-                                        <input type="number" class="form-control" id="grandTotal" name="grand_total"  readonly>
+                                        <input type="number" class="form-control" id="grandTotal" name="grand_total" readonly>
                                     </div>
                                 </div>
 
@@ -115,26 +122,25 @@
     </div>
 </div>
 
-
 <script>
     document.getElementById('addItemBtn').addEventListener('click', function(e) {
-        e.preventDefault()
+        e.preventDefault();
         addItem();
     });
 
     function addItem() {
         const tableBody = document.querySelector('#itemsTable tbody');
         const newRow = document.createElement('tr');
-        
-         newRow.innerHTML = `
-            <td><input type="text" class="form-control" name="items[][item]" placeholder="Item Name"></td>
-            <td><input type="text" class="form-control" name="items[][description]" placeholder="Description"></td>
-            <td><input type="number" class="form-control" name="items[][quantity]" value="1" min="1"></td>
-            <td><input type="number" class="form-control" name="items[][price]" value="0.00" min="0" step="0.01"></td>
-            <td><input type="number" class="form-control" name="items[][total]" value="0.00" readonly></td>
-            <td><button class="btn btn-danger" type="button" onclick="removeItem(this)">Remove</button></td>
+
+        newRow.innerHTML = `
+            <td><input type="text" class="form-control" name="item_name[]" placeholder="Item Name"></td>
+            <td><input type="text" class="form-control" name="description[]" placeholder="Description"></td>
+            <td><input type="number" class="form-control quantity" name="quantity[]" value="1" min="1" oninput="updateTotal(this)"></td>
+            <td><input type="number" class="form-control price" name="price[]" value="0.00" min="0" step="0.01" oninput="updateTotal(this)"></td>
+            <td><input type="number" class="form-control total" name="totalprice[]" value="0.00" readonly></td>
+            <td><button class="btn btn-danger" type="button" onclick="removeItem(this)"><i class="fas fa-trash-alt"></i></button></td>
         `;
-        
+
         tableBody.appendChild(newRow);
     }
 
@@ -146,17 +152,18 @@
 
     function updateTotal(input) {
         const row = input.closest('tr');
-        const quantity = row.querySelector('.quantity').value;
-        const price = row.querySelector('.price').value;
+        const quantity = parseFloat(row.querySelector('.quantity').value) || 0;
+        const price = parseFloat(row.querySelector('.price').value) || 0;
         const total = row.querySelector('.total');
-        
+
         total.value = (quantity * price).toFixed(2);
         updateInvoiceSummary();
     }
 
-    function updateInvoiceSummary(){
+    function updateInvoiceSummary() {
         let subtotal = 0;
         const totalFields = document.querySelectorAll('.total');
+
         totalFields.forEach(field => {
             subtotal += parseFloat(field.value);
         });
@@ -165,7 +172,7 @@
         document.getElementById('subtotal').value = subtotal.toFixed(2);
 
         // Get Discount Percentage
-        const discountPercentage = document.getElementById('discount').value || 0;
+        const discountPercentage = parseFloat(document.getElementById('discount').value) || 0;
         const discountAmount = (subtotal * discountPercentage / 100).toFixed(2);
         document.getElementById('discountAmount').value = discountAmount;
 
@@ -183,6 +190,7 @@
     }
 
     document.getElementById('discount').addEventListener('input', updateInvoiceSummary);
+
 </script>
 
 @endsection

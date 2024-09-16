@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('invoiceitems', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('item_name');
             $table->string('description')->nullable();
             $table->integer('quantity');
             $table->decimal('price',10,2);
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->foreign('invoice_id')->references('id')->on('invoices');
 
 
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('customer');
+            $table->string('phone');
             $table->string('invoice_no');
             $table->decimal('subtotal',10,2);
             $table->boolean('status')->default(true); 
-            $table->decimal('discount',5,2); 
-            $table->decimal('discount_amount',10,2); 
+            $table->decimal('discount',5,2)->nullable(); 
+            $table->decimal('discount_amount',10,2)->nullable(); 
             $table->decimal('paid_amount', 10,2);
             $table->date('invoice_date');
             // $table->timestamps();

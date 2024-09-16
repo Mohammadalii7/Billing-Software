@@ -12,7 +12,7 @@
         <div class="card-body">
             <div class="modal-body">
                 <!-- Update Form -->
-                <form action="update" method="post">
+                <form action="{{url('update')}}" method="post">
                     @csrf
                     {{-- @method('PUT') <!-- HTTP PUT method --> --}}
 
@@ -38,7 +38,7 @@
                             {{-- <tbody>{{$invoice}} --}}
                             <!-- Dynamically populated items -->
                             <tr>
-                                <td><input type="text" class="form-control" name="item[]" value="{{$invoice->item}}"></td>
+                                <td><input type="text" class="form-control" name="item[]" value="{{$invoice->item_name}}"></td>
                                 <td><input type="text" class="form-control" name="description[]" value="{{$invoice->description}}"></td>
                                 <td><input type="number" class="form-control" name="quantity[]" value="{{$invoice->quantity}}"></td>
                                 <td><input type="number" class="form-control" name="price[]" value="{{$invoice->price}}"></td>
