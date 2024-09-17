@@ -20,8 +20,9 @@ return new class extends Migration
             $table->boolean('status')->default(true); 
             $table->decimal('discount',5,2)->nullable(); 
             $table->decimal('discount_amount',10,2)->nullable(); 
-            $table->decimal('paid_amount', 10,2);
+            $table->decimal('paid_amount', 10,2)->nullable();
             $table->date('invoice_date');
+            $table->date('due_date');
             // $table->timestamps();
         });
     }

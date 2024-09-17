@@ -33,7 +33,10 @@ Route::get('ViewInvoice/{id}',[InvoiceController::class,'ViewInvoice']);
 Route::get('EditInvoice/{id}',[InvoiceController::class,'EditInvoice']);
 
 //for update invoice using post mehtod
-Route::post('update',[InvoiceController::class,'update']);
+Route::post('/update/{id}',[InvoiceController::class,'update']);
+
+//for delete invoice
+Route::post('delete/{id}',[InvoiceController::class,'muldel']);
 
 //for logout
 Route::get('logout',[InvoiceController::class,'logout']);

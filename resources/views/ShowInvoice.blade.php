@@ -2,12 +2,16 @@
 
 @section('content')
 {{-- <h1>Invoices</h1> --}}
+<form action="delete/{id}" method="post">
+  @csrf
+    <button type="submit" class="btn btn-danger">Delete Selected</button>
 <table class="invoice-table">
     <thead>
         <tr>
+            <th>#</th>
             <th>Id</th>
             <th>Customer</th>
-            <th>phone</th>
+            <th>Contact</th>
             <th>Invoice No</th>
             <th>Status</th>
             <th>Discount</th>
@@ -20,6 +24,7 @@
     <tbody> 
         @foreach ($user as $item)
         <tr>
+            <td><input type="checkbox"></td>
             <td>{{ $item->id }}</td>
             <td>{{ $item->customer }}</td>
             <td>{{ $item->phone }}</td>
@@ -36,6 +41,7 @@
         @endforeach
     </tbody>
 </table>
+</form>
 
 <style>
     .invoice-table {

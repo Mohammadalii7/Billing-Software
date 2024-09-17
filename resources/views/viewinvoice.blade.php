@@ -152,13 +152,14 @@
 
             <div class="invoice-details">
                 <h3>Invoice Info {{$invoice->invoice_no}}</h3>
-                <p><strong>Invoice Date:</strong> 2024-09-14</p>
+                <p><strong>Invoice Date:</strong>{{$invoice->invoice_date}}</p>
+                <p><strong>Due Date:</strong>{{$invoice->due_date}}</p>
                 <p><strong>Status:</strong> <span class="unpaid">{{$invoice->status}}</span></p>
             </div>
         </div>
         <hr>
 
-        <div class="item-info">
+        <div class="item-info">  
             <h3>Item Info</h3>
             <table>
                 <thead>
@@ -192,7 +193,7 @@
         <div class="account-info">
             <h3>Account Info</h3>
             <p><strong>Subtotal:</strong>{{$invoice->subtotal}}</p>
-            <p><strong>Discount (0.00%):</strong>{{$invoice->discount}}</p>
+            <p><strong>Discount :</strong>{{$invoice->discount}}%</p>
             <p><strong>Discount Amount:</strong>{{$invoice->discount_amount}}</p>
             {{-- <p><strong>Tax Amount:</strong> ₹7.5</p> --}}
             <p><strong>Paid Amount:</strong>{{$invoice->paid_amount}}</p>
