@@ -16,11 +16,13 @@ return new class extends Migration
             $table->string('item_name');
             $table->string('description')->nullable();
             $table->integer('quantity');
-            $table->decimal('price',10,2);
-            $table->decimal('totalprice',10,2);
+            $table->decimal('price', 10, 2);
+            $table->decimal('totalprice', 10, 2);
             $table->unsignedBigInteger('invoice_id');
-         
-            $table->foreign('invoice_id')->references('id')->on('invoices');
+
+            $table->foreign('invoice_id')
+                ->references('id')->on('invoices')
+                ->onDelete('cascade');
 
 
             // $table->timestamps();

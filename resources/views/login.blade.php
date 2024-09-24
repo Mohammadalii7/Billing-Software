@@ -4,142 +4,353 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+ 
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
-        body, html {
+        body,
+        html {
             height: 100%;
-            font-family: 'Arial', sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        /* Fade In Animation for Container */
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Slide In Animation for Right Section */
+        @-webkit-keyframes slideIn {
+            from {
+                -webkit-transform: translateX(100%);
+            }
+
+            to {
+                -webkit-transform: translateX(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        /* Rotate and Scale Animation for Logo */
+        @-webkit-keyframes rotateScale {
+            0% {
+                -webkit-transform: rotate(0deg) scale(1);
+            }
+
+            50% {
+                -webkit-transform: rotate(180deg) scale(1.2);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg) scale(1);
+            }
+        }
+
+        @keyframes rotateScale {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1.2);
+            }
+
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        /* Pulse Animation for Button */
+        @-webkit-keyframes pulse {
+            0% {
+                -webkit-transform: scale(1);
+            }
+
+            50% {
+                -webkit-transform: scale(1.05);
+            }
+
+            100% {
+                -webkit-transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .container {
             display: flex;
-            height: 100vh;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            -webkit-animation: fadeIn 1s ease-in-out;
+            animation: fadeIn 1s ease-in-out;
         }
 
+        .login-box {
+            display: flex;
+            width: 900px;
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            -webkit-animation: fadeIn 1s ease-in-out;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Left Section (Login Form) */
         .left {
-            background-color: #f9f9f9;
-            width: 50%;
+            flex: 1;
+            background-color: #fff;
             padding: 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
+        }
+
+        /* Logo Animation */
+        .left img {
+            position: absolute;
+            top: 10px;
+            left: 60%;
+            width: 180px;
+            /* -webkit-animation: rotateScale 3s infinite;
+            animation: rotateScale 3s infinite; */
         }
 
         .left h1 {
-            color: #4A2D84;
-            font-size: 3rem;
+            color: #333;
+            font-size: 2.8rem;
+            font-weight: 600;
             margin-bottom: 10px;
         }
 
         .left p {
-            color: #777;
+            color: #666;
+            font-size: 1.1rem;
             margin-bottom: 30px;
         }
 
         .left input {
             width: 100%;
             padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: border 0.3s ease;
         }
 
-        .left .form-control {
-            font-size: 1rem;
-        }
-
-        .left .btn {
-            width: 100%;
-            background-color: #5A67D8;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 25px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .left .btn:hover {
-            background-color: #3F51B5;
-        }
-
-        .right {
-            width: 50%;
-            background-color: #2D2966;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            flex-direction: column;
-        }
-
-        .right h2 {
-            font-size: 2.5rem;
-        }
-
-        .right p {
-            font-size: 1.2rem;
-            margin-top: 10px;
+        .left input:focus {
+            border-color: #5A67D8;
+            outline: none;
         }
 
         .forgot-password {
             color: #5A67D8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
             text-align: right;
             display: block;
-            margin-top: -10px;
-            margin-bottom: 20px;
-            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         .forgot-password:hover {
-            text-decoration: underline;
+            color: #3F51B5;
         }
 
         .remember {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            color: #555;
         }
 
         .remember input {
             margin-right: 10px;
         }
 
+        /* Button with Pulse Animation */
+        .left .btn {
+            padding: 15px;
+            width: 100%;
+            background: linear-gradient(45deg, #1d99a2, #1d99a2);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            ss font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            -webkit-animation: pulse 1.5s infinite;
+            animation: pulse 1.5s infinite;
+        }
+
+        .left .btn:hover {
+            background-color: #3F51B5;
+        }
+
+        /* Right Section (Promotional Area with Slide-In Animation) */
+        .right {
+            flex: 1;
+            background: linear-gradient(45deg, #1d99a2, #f5faf4);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            -webkit-animation: slideIn 1s ease forwards;
+            animation: slideIn 1s ease forwards;
+        }
+
+        .right h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .right p {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            max-width: 400px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .right img {
+            max-width: 80%;
+            margin-top: 10px;
+        }
+
+        /* Additional Styling */
+        @media (max-width: 1024px) {
+            .login-box {
+                flex-direction: column;
+                width: 100%;
+                margin: 20px;
+            }
+
+            .right {
+                padding: 30px;
+            }
+
+            .right img {
+                display: none;
+
+            }
+        }
+
+        @media (max-width: 600px) {
+            .left h1 {
+                font-size: 2.2rem;
+            }
+
+            .right h2 {
+                font-size: 2.5rem;
+            }
+
+            .right p {
+                font-size: 1.2rem;
+            }
+        }
+
     </style>
 </head>
 <body>
+    <form action="/login" method="POST">
+        @csrf
+        <div class="container">
+            <!-- Login Box -->
+            <div class="login-box">
+                <!-- Left Side (Login Form) -->
+                <div class="left">
+                    <h1>Login</h1>
+                    <p>Sign in to your account</p>
 
-    <div class="container">
-        <!-- Left Side (Login Form) -->
-        <div class="left">
-            <img src="" alt="Logo" style="width: 150px; margin-bottom: 20px;">
-            <h1>Login</h1>
-            <p>Site/Admin</p>
+                    <!-- Email or Username -->
+                    <input type="text" name="email" placeholder="Email or Username" class="form-control" required>
 
-            <input type="text" placeholder="Email or Username" class="form-control">
-            <input type="password" placeholder="Password" class="form-control">
-            {{-- <a href="#" class="forgot-password">Forgot Your Password?</a> --}}
+                    <!-- Password -->
+                    <input type="password" name="password" placeholder="Password" class="form-control" required>
 
-            {{-- <div class="remember">
-                <input type="checkbox" id="remember">
-                <label for="remember">Remember Me</label>
-            </div> --}}
+                    <!-- Login Button -->
+                    <button type="submit" class="btn">Login</button>
+                </div>
 
-            <button class="btn">Login</button>
+                <!-- Right Side (Promotional Area) -->
+                <div class="right">
+                    <img src="Logo.png" alt="Illustration">
+                    <h2>Welcome Back!</h2>
+                    <p>Relax Your Car</p>
+                </div>
+            </div>
         </div>
+        @if (session('error'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true
+                , position: 'top-right'
+                , iconColor: 'red'
+                , customClass: {
+                    popup: 'colored-toast'
+                }
+                , showConfirmButton: false
+                , timer: 1500
+                , timerProgressBar: true
+            });
 
-        <!-- Right Side (Text Area) -->
-        <div class="right">
-            <h2>Garage Management & Billing System</h2>
-            {{-- <p>{ v }</p> --}}
-        </div>
-    </div>
+            Toast.fire({
+                icon: 'error'
+                , title: "{{ session('error') }}"
+            });
 
+        </script>
+        @endif
+    </form>
 </body>
 </html>

@@ -11,16 +11,36 @@
 
         <div class="card-body">
             <div class="modal-body">
-                
-                <form action="{{url('update',$invoice->id)}}" method="post">
+                <form action="{{url('update', $invoice->id)}}" method="post">
                     @csrf
-             
-                    <div class="mb-3">
-                        <label for="customer" class="form-label">Customer</label>
-                        <input type="text" class="form-control" id="customer" name="customer" value="{{$invoice->customer}}">
+
+                    <div class="row mb-3">
+                        <!-- Customer Field -->
+                        <div class="col-md-6">
+                            <label for="customer" class="form-label">Customer</label>
+                            <input type="text" class="form-control" id="customer" name="customer" value="{{$invoice->customer}}" required>
+                        </div>
+
+                        <!-- Contact Field -->
+                        <div class="col-md-6">
+                            <label for="contact" class="form-label">Contact</label>
+                            <input type="text" class="form-control" id="contact" name="phone" value="{{$invoice->phone}}" required>
+                        </div>
                     </div>
 
-                   
+                    <div class="row mb-3">
+                        <!-- Status Toggle -->
+                        <div class="col-md-6">
+                            <label for="statusToggle" class="form-label">Status</label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" id="statusToggle" name="status"  {{$invoice->status == 1 ? 'checked' : ''}}>
+                                <label class="form-check-label" for="statusToggle" id="statusLabel">
+                                    {{ $invoice->status == 1 ? 'Paid' : 'Unpaid' }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -35,11 +55,12 @@
                             <tbody id="invoiceItems">
                                 @foreach($invoice_items as $key => $item)
                                 <tr>
-                                    <td><input type="text" class="form-control" name="item[]" value="{{ $item->item_name }}"></td>
+                                    <input type="hidden" name="item_id[]" value="{{ $item->id }}">
+                                    <td><input type="text" class="form-control" name="item_name[]" value="{{ $item->item_name }}" required></td>
                                     <td><input type="text" class="form-control" name="description[]" value="{{ $item->description }}"></td>
-                                    <td><input type="number" class="form-control quantity" name="quantity[]" value="{{ $item->quantity }}" oninput="calculateTotal(this)"></td>
-                                    <td><input type="number" class="form-control price" name="price[]" value="{{ $item->price }}" oninput="calculateTotal(this)"></td>
-                                    <td><input type="number" class="form-control itemTotal" readonly value="{{ $item->totalprice }}"></td>
+                                    <td><input type="number" class="form-control quantity" name="quantity[]" min="0" value="{{ $item->quantity }}" oninput="calculateTotal(this)"></td>
+                                    <td><input type="number" class="form-control price" name="price[]" min="0" value="{{ $item->price }}" oninput="calculateTotal(this)"></td>
+                                    <td><input type="number" class="form-control itemTotal" name="totalprice[]" readonly value="{{ $item->totalprice }}"></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -53,7 +74,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="discount" class="form-label">Discount (%)</label>
-                            <input type="number" class="form-control" id="discount" name="discount" value="{{$invoice->discount}}" oninput="calculateGrandTotal()">
+                            <input type="number" class="form-control" id="discount" name="discount" min="0" max="100" value="{{$invoice->discount}}" oninput="calculateGrandTotal()">
                         </div>
                         <div class="col-md-4">
                             <label for="grandTotal" class="form-label">Grand Total</label>
@@ -65,19 +86,17 @@
                         <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Save Changes</button>
                     </div>
                 </form>
-                <!-- Form Ends -->
             </div>
-            <!-- Modal Ends -->
         </div>
     </div>
 </div>
+
 <style>
     @keyframes popIn {
         0% {
             transform: scale(0.9);
             opacity: 0;
         }
-
         100% {
             transform: scale(1);
             opacity: 1;
@@ -89,7 +108,18 @@
         transform-origin: center center;
     }
 </style>
+
 <script>
+    // Update status label when toggling the switch
+    document.getElementById('statusToggle').addEventListener('change', function () {
+        const statusLabel = document.getElementById('statusLabel');
+        if (this.checked) {
+            statusLabel.textContent = 'Paid';
+        } else {
+            statusLabel.textContent = 'Unpaid';
+        }
+    });
+
     // Function to calculate the total for each row (quantity * price)
     function calculateTotal(element) {
         const row = element.closest('tr');
@@ -117,7 +147,7 @@
     function calculateGrandTotal() {
         const subtotal = parseFloat(document.getElementById('subtotal').value) || 0;
         const discount = parseFloat(document.getElementById('discount').value) || 0;
-        
+
         const discountAmount = subtotal * (discount / 100);
         const grandTotal = subtotal - discountAmount;
 

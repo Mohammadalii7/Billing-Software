@@ -10,4 +10,9 @@ class Invoice extends Model
     use HasFactory;
     public $timestamps = false;
     // protected $fillable = ['customer', 'item'];
+
+    public function items()
+    {
+        return $this->hasMany(InvoiceItem::class, 'invoice_id'); // Assuming 'invoice_id' is the foreign key
+    }
 }

@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'autorelaxes',
         ],
     ],
 
@@ -64,6 +64,11 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+        'autorelaxes' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Autorelax::class),
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',

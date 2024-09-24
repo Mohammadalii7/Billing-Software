@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+// use Illuminate\Notifications\Notifiable;
 
-class Autorelax extends Model
+class Autorelax extends Authenticatable 
+
 {
     use HasFactory;
     public $timestamps = false;
-    
-    protected $table = 'autorelaxes'; 
+    // protected $fillable = ['customer', 'item'];
 }
