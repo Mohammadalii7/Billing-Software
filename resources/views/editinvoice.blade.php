@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Update Invoice')
+@section('title', 'Auto Relax')
 
 @section('content')
 <div class="container mt-4">
@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                             <label for="statusToggle" class="form-label">Status</label>
                             <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" id="statusToggle" name="status"  {{$invoice->status == 1 ? 'checked' : ''}}>
+                                <input type="checkbox" class="form-check-input" id="statusToggle" name="status" {{$invoice->status == 1 ? 'checked' : ''}}>
                                 <label class="form-check-label" for="statusToggle" id="statusLabel">
                                     {{ $invoice->status == 1 ? 'Paid' : 'Unpaid' }}
                                 </label>
@@ -56,7 +56,18 @@
                                 @foreach($invoice_items as $key => $item)
                                 <tr>
                                     <input type="hidden" name="item_id[]" value="{{ $item->id }}">
-                                    <td><input type="text" class="form-control" name="item_name[]" value="{{ $item->item_name }}" required></td>
+                                    <td><select class="form-control" name="item_name[]" onchange="updatePriceAndTotal(this)">
+                                            <option value="">Select Item</option>
+                                            <option value="Alignment" data-price="10" {{ $item->item_name == 'Alignment' ? 'selected' : '' }}>Alignment</option>
+                                            <option value="Balancing" data-price="20" {{ $item->item_name == 'Balancing' ? 'selected' : '' }}>Balancing</option>
+                                            <option value="Car Washing" data-price="30" {{ $item->item_name == 'Car Washing' ? 'selected' : '' }}>Car Washing</option>
+                                            <option value="New Tyre" data-price="30" {{ $item->item_name == 'New Tyre' ? 'selected' : '' }}>New Tyre</option>
+                                            <option value="Second Tyre" data-price="30" {{ $item->item_name == 'Second Tyre' ? 'selected' : '' }}>Second Tyre</option>
+                                            <option value="Nitrogen Air" data-price="30" {{ $item->item_name == 'Nitrogen Air' ? 'selected' : '' }}>Nitrogen Air</option>
+                                            <option value="Car Polish" data-price="30" {{ $item->item_name == 'Car Polish' ? 'selected' : '' }}>Car Polish</option>
+                                            <option value="Punchar" data-price="30" {{ $item->item_name == 'Punchar' ? 'selected' : '' }}>Punchar</option>
+                                            <!-- Add more options here or load them dynamically -->
+                                        </select></td>
                                     <td><input type="text" class="form-control" name="description[]" value="{{ $item->description }}"></td>
                                     <td><input type="number" class="form-control quantity" name="quantity[]" min="0" value="{{ $item->quantity }}" oninput="calculateTotal(this)"></td>
                                     <td><input type="number" class="form-control price" name="price[]" min="0" value="{{ $item->price }}" oninput="calculateTotal(this)"></td>
@@ -97,6 +108,7 @@
             transform: scale(0.9);
             opacity: 0;
         }
+
         100% {
             transform: scale(1);
             opacity: 1;
@@ -107,11 +119,12 @@
         animation: popIn 0.3s ease-out;
         transform-origin: center center;
     }
+
 </style>
 
 <script>
     // Update status label when toggling the switch
-    document.getElementById('statusToggle').addEventListener('change', function () {
+    document.getElementById('statusToggle').addEventListener('change', function() {
         const statusLabel = document.getElementById('statusLabel');
         if (this.checked) {
             statusLabel.textContent = 'Paid';
@@ -158,5 +171,6 @@
     document.addEventListener('DOMContentLoaded', (event) => {
         document.querySelector('.card').classList.add('pop-animation');
     });
+
 </script>
 @endsection

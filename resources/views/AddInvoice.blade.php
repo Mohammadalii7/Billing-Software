@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Add Invoice')
+@section('title', 'Auto Relax')
 
 @section('content')
 <div class="container mt-4">

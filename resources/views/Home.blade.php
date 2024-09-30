@@ -1,5 +1,5 @@
 @extends('layout');
-@section('title', 'Dashboard')
+@section('title', 'Auto Relax')
 
 @section( 'content')
 

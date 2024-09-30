@@ -1,14 +1,14 @@
 @extends('layout')
 
-@section('title', 'List Invoice')
+@section('title', 'Auto Relax')
 @section('content')
 
 
 
 
-<a href="{{url('exportexcel')}}" class="btn btn-outline-secondary my-4">
-    <i class="fa fa-download"></i> Export
-</a>
+    <a href="{{url('exportexcel')}}" class="btn btn-outline-secondary my-4">
+        <i class="fa fa-download"></i> Export
+    </a>
 
 
 <form action="delete/{id}" method="post">

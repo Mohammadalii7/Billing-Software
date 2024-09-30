@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Invoice</title>
+    <title>Auto Relax</title>
      <link rel="icon" type="image/png/jpg" href="{{ asset('assets/css/Logo1.png') }}">  
     <title>Invoice Info</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -164,6 +164,7 @@
         <hr>
 
         <div class="actions">
+
             <!-- Print Button -->
             <a class="btn btn-success" href="{{url('Invoicepdf',$invoice->id)}}">
                 <i class="fas fa-print"></i> Print Invoice

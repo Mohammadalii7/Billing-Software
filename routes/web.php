@@ -11,7 +11,7 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 
 
 Route::view('Home','Home');
-Route::view('admin','admin');
+// Route::view('admin','admin');
 Route::view('AddInvoice','AddInvoice');
 Route::view('ShowInvoice','ShowInvoice');
 Route::view('ViewInvoice','ViewInvoice');
@@ -51,7 +51,9 @@ Route::get('delete/{id}',[InvoiceController::class,'muldel']);
 Route::get('logout',[InvoiceController::class,'logout']);
 
 Route::get('Invoicepdf/{id}', [PDFController::class, 'generatePDF']);
+
 Route::get('exportexcel', [ExcelController::class, 'exportexcel']);
+
 
 
 });

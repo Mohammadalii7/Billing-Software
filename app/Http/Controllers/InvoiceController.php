@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Validator;
 // use Illuminate\Support\Facades\Hash;
 
 class InvoiceController extends Controller
-{   
+{
     function login(Request $request)
     {
-        
+
         $user = Autorelax::where('email', $request->email)->first();
         // dd($user);
         if ($user && $request->password === $user->password) {
@@ -42,7 +42,7 @@ class InvoiceController extends Controller
 
             $lastInvoice = Invoice::orderBy('invoice_no', 'desc')->first();
             $invoice_no = isset($lastInvoice->invoice_no)  ? $lastInvoice->invoice_no + 1 : 1000;
-            
+
 
 
             $invoice = new Invoice();
@@ -50,7 +50,7 @@ class InvoiceController extends Controller
             $invoice->phone = $request->phone;
             $invoice->invoice_no = $invoice_no;
             $invoice->subtotal = $request->subtotal;
-            $invoice->status ='1';
+            $invoice->status = '1';
             $invoice->discount_amount = $request->discount_amount;
             $invoice->discount = $request->discount;
             $invoice->grand_total = $request->grand_total;
@@ -134,33 +134,33 @@ class InvoiceController extends Controller
             // dd($request->all());
             // Find the invoice by ID
             Invoice::where('id', $id)
-                    ->update([
-                        'customer' => $request->customer,
-                        'phone' => $request->phone,
-                        
-                        'subtotal' => $request->subtotal,
-                        'discount' => $request->discount,
-                        'grand_total' => $request->grand_total,
-                        'status' => $request->has('status') ? 1 : 0 // Set 'Paid' (1) if the checkbox is checked, otherwise 'Unpaid' (0)
-                    ]);
-            
+                ->update([
+                    'customer' => $request->customer,
+                    'phone' => $request->phone,
+
+                    'subtotal' => $request->subtotal,
+                    'discount' => $request->discount,
+                    'grand_total' => $request->grand_total,
+                    'status' => $request->has('status') ? 1 : 0 // Set 'Paid' (1) if the checkbox is checked, otherwise 'Unpaid' (0)
+                ]);
+
             foreach ($request->item_name as $index => $item_name) {
                 $item_id = $request->item_id[$index] ?? null; // Assuming you have an item ID in the request
-            
+
                 if ($item_id) {
                     // Find the existing invoice item by its ID and update it                    
                     Invoiceitem::where('id', $item_id)
-                            ->update([
-                                'item_name' => $item_name,
-                                'description' => $request->description[$index],
-                                'quantity' => (int) $request->quantity[$index],
-                                'price' => $request->price[$index],
-                                'totalprice' => $request->totalprice[$index]
-                            ]);
+                        ->update([
+                            'item_name' => $item_name,
+                            'description' => $request->description[$index],
+                            'quantity' => (int) $request->quantity[$index],
+                            'price' => $request->price[$index],
+                            'totalprice' => $request->totalprice[$index]
+                        ]);
                 }
             }
 
-            
+
             DB::commit();
 
             return redirect('ShowInvoice')->with('success', 'Invoice updated successfully');
@@ -169,19 +169,17 @@ class InvoiceController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
-    function muldel(Request $request,$id){
+    function muldel( $id)
+    {
         // $id = $_POST['id'];
-        try{
-            $result=Invoice::destroy($id);
+        try {
+            $result = Invoice::destroy($id);
             return redirect('ShowInvoice')->with('success', 'Deleted Successfully');
-
-        }catch (\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
-            }
-
-
         }
-    
+    }
+
     function logout()
     {
         Auth::logout();

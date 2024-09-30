@@ -28,7 +28,7 @@
         }
 
         .sidebar {
-            width: 230px;
+            width: 245px;
             background-color: #f8f9fa;
             height: 130vh;
             padding: 20px 0px;
@@ -40,6 +40,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 30px;
+
         }
 
         .logo img {
@@ -48,9 +49,11 @@
         }
 
         .logo-text {
-            font-size: 33px;
-            margin-right:50px;
-            padding:10px;
+
+            font-size: 38px;
+            font-family: Garamond;
+            margin-right: 50px;
+            padding: 10px;
             font-weight: 500;
             color: #332d2d;
         }
@@ -64,7 +67,8 @@
             display: flex;
             align-items: center;
             padding: 10px 20px;
-            font-size: 17px;
+            font-family: italic;
+            font-size: 20px;
             color: #5a5a5a;
             margin-bottom: 15px;
             cursor: pointer;
@@ -144,6 +148,13 @@
             object-fit: cover;
         }
 
+        .avatarr img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
         /* Active green dot */
         .avatar-online::after {
             content: '';
@@ -156,13 +167,14 @@
             bottom: 0;
             right: 0;
             border: 2px solid #fff;
-              
+
             /* Border to make the green dot more visible */
         }
 
         .dropdown-toggle::after {
             display: none;
-               box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add a shadow */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            /* Add a shadow */
         }
 
         .word {
@@ -179,30 +191,39 @@
 
         .log {
 
-            
+
             margin-left: 4px;
-            color: red;
+            color: #c01c1c;
+
         }
 
         .footer {
             background-color: #f8f9fa;
             text-align: center;
             color: #343a40;
-     
+
             margin-top: auto;
-         
+
         }
 
         .footer p {
             margin: 0;
             font-size: 15px;
         }
-        .fw-semibold{
-            color:grey;
-            font-family:italic;
-            font-size: 18px;
+
+        .fw-semibold {
+            color: grey;
+            font-family: italic;
+            font-size: 14px;
             font-weight: bold;
-           
+
+        }
+
+        .text {
+            color:red;
+            font-size: 15px;
+            font-family: italic;
+            margin-top: 20px;
         }
 
     </style>
@@ -213,6 +234,7 @@
         <nav class="sidebar">
             <div class="logo">
                 <h2 class="logo-text">Auto <span class="word">Relax</span></h2>
+                
             </div>
             <ul class="menu">
                 <li class="menu-item">
@@ -228,7 +250,7 @@
                     <a href="AddInvoice"><span class="add">Add Invoice</span> </a>
                 </li>
                 <li class="menu-item">
-                    <i class="fa fa-sign-out-alt" style="color:red;"></i>
+                    <i class="fa fa-sign-out-alt" style="color:#c01c1c;"></i>
                     <a href="logout"><span class="log">Logout</span></a>
                 </li>
             </ul>
@@ -250,13 +272,13 @@
                             <a class="dropdown-item" href="">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-1">
-                                        <div class="avatar avatar-online">
+                                        <div class="avatarr avatarr-ofline">
                                             <img src="{{asset('assets/css/avtar.jpg')}}" alt="Profile Image" />
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
                                         <span class="fw-semibold d-block">Mahendi Hasan</span>
-                                        <small class="text-muted">Admin</small>
+                                        <small class="text">Admin</small>
                                     </div>
                                 </div>
                             </a>
@@ -318,9 +340,9 @@
     {{-- <footer class="footer">
         <div class="container">
             {{-- <p>© 2024 Admin Panel. All rights reserved.</p> --}}
-            {{-- <p>Powered by <a href="Home">AutoRelax</p></a>
+    {{-- <p>Powered by <a href="Home">AutoRelax</p></a>
         </div>
-    </footer> --}} 
+    </footer> --}}
 
 
     <!-- Bootstrap JS and dependencies -->
