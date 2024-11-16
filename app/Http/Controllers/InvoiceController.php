@@ -23,7 +23,7 @@ class InvoiceController extends Controller
 
             Auth::login($user);
 
-            return redirect('ShowInvoice');
+            return redirect('Home');
         } else {
             return redirect()->back()->with('error', 'Invalid credentials');
         }

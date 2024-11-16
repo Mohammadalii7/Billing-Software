@@ -1,69 +1,77 @@
 @extends('layout')
 
 @section('title', 'Auto Relax')
+
 @section('content')
 
-
-
-
-    <a href="{{url('exportexcel')}}" class="btn btn-outline-secondary my-4">
+<div class="table-container">
+    <a href="{{url('exportexcel')}}" class="btn btn-outline-secondary my-1">
         <i class="fa fa-download"></i> Export
     </a>
+    <form action="delete/{id}" method="post">
+        @csrf
 
+        <table id="myTable" class="invoice-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Id</th>
+                    <th>Customer</th>
+                    <th>Contact</th>
+                    <th>Invoice No</th>
+                    <th>Status</th>
+                    <th>Discount</th>
+                    <th>Discount Amount</th>
+                    <th>Grand Total</th>
+                    <th>Invoice Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($user as $index=> $item)
+                <tr>
 
-<form action="delete/{id}" method="post">
-    @csrf
+                    <td>
+                        <a href="/delete/{{ $item->id }}"><i class="fa fa-trash" style="color: red;"></i></a>
+                    </td>
 
-    <table id="myTable" class="invoice-table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Id</th>
-                <th>Customer</th>
-                <th>Contact</th>
-                <th>Invoice No</th>
-                <th>Status</th>
-                <th>Discount</th>
-                <th>Discount Amount</th>
-                <th>Grand Total</th>
-                <th>Invoice Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($user as $index=> $item)
-            <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $item->customer }}</td>
+                    <td>{{ $item->phone }}</td>
+                    <td>{{ $item->invoice_no }}</td>
 
-                <td>
-                    <a href="/delete/{{ $item->id }}"><i class="fa fa-trash" style="color: red;"></i></a>
-                </td>
-
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $item->customer }}</td>
-                <td>{{ $item->phone }}</td>
-                <td>{{ $item->invoice_no }}</td>
-
-                <td>
-                    @if ($item->status == 1)
-                    <span class="badge badge-paid">Paid</span>
-                    @else
-                    <span class="badge badge-unpaid">Unpaid</span>
-                    @endif
-                </td>
-                <td>{{ $item->discount }}</td>
-                <td>{{ $item->discount_amount }}</td>
-                <td>{{ $item->grand_total }}</td>
-                <td>{{ $item->invoice_date }}</td>
-                <td><a href="ViewInvoice/{{$item->id}}" class="btn btn-outline-secondary">
-                        <i class="fa fa-eye"></i> View Invoice
-                    </a></td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</form>
+                    <td>
+                        @if ($item->status == 1)
+                        <span class="badge badge-paid">Paid</span>
+                        @else
+                        <span class="badge badge-unpaid">Unpaid</span>
+                        @endif
+                    </td>
+                    <td>{{ $item->discount }}</td>
+                    <td>{{ $item->discount_amount }}</td>
+                    <td>{{ $item->grand_total }}</td>
+                    <td>{{ $item->invoice_date }}</td>
+                    <td><a href="ViewInvoice/{{$item->id}}" class="btn btn-outline-secondary">
+                            <i class="fa fa-eye"></i> View Invoice
+                        </a></td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </form>
+</div>
 
 <style>
+    .table-container {
+        margin: 20px auto; /* Center container */
+        padding: 20px;
+        max-width: 95%; /* Set a maximum width */
+        border: 1px solid #ddd; /* Optional border for container */
+        border-radius: 10px; /* Rounded corners */
+        background-color: #fff; /* White background */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
     /* Badge styles for Paid and Unpaid statuses */
     .badge {
         padding: 5px 15px;
@@ -72,7 +80,7 @@
         font-size: 14px;
         display: inline-block;
         text-align: center;
-        margin: 0 auto; /* Center badge if needed */
+        margin: 0 auto;
         width: fit-content;
     }
 
@@ -91,7 +99,6 @@
     /* Invoice table styles */
     .invoice-table {
         width: 100%;
-        max-width: 100%; /* Prevents overflow of the table */
         border-collapse: collapse;
         margin: 20px 0;
         font-size: 14px;
@@ -120,29 +127,6 @@
         background-color: #f1f1f1;
     }
 
-    /* Adjust the action button styles for consistency */
-    .btn-action {
-        padding: 5px 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 12px;
-    }
-
-    .btn-action:hover {
-        background-color: #0056b3;
-    }
-
-    /* Headings styles */
-    h1 {
-        margin-bottom: 20px;
-        font-size: 24px;
-        color: #333;
-        text-align: center;
-    }
-
     /* Responsive adjustments for smaller screens */
     @media (max-width: 1200px) {
         .invoice-table th,
@@ -157,19 +141,7 @@
             font-size: 10px;
             padding: 8px;
         }
-
-        .btn-action {
-            font-size: 10px; /* Reduce button font size on smaller screens */
-            padding: 3px 8px;
-        }
     }
-
-    /* Scrollable table container for smaller screens */
-    .table-container {
-        overflow-x: auto; /* Horizontal scrolling */
-        max-width: 100%; /* Ensure the container doesn't exceed screen size */
-    }
-
 </style>
 
 @endsection

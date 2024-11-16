@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('title', 'Auto Relax')
+<base href="/public">
 
 @section('content')
 <div class="container mt-4">
